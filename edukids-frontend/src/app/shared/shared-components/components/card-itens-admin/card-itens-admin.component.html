@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row row-adm" data-aos="fade-up">
+    <div class="col-md-12">
+      <div class="jumbotron" style="background-color:#08c479;color:rgb(255,255,255);">
+        <div class="row">
+          <div class="col">
+            <h1>{{titulo}}</h1>
+            <p>{{descricao}}</p>
+          </div>
+          <div class="col-2 d-inline float-right d-flex justify-content-end align-content-end align-self-end order-1">
+            <button (click)="adicionar()" class="btn btn-light" type="button" data-aos="fade-up" data-aos-delay="200"
+              style="margin-bottom:5px;">Adicionar&nbsp;<i class="fa fa-plus-square"></i></button></div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <ng-content></ng-content>
+            <!-- <div class="table-responsive tabela-adm">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Email</th>
+                    <th>Nome</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>professor@teste.com</td>
+                    <td>Antonio Carlos</td>
+                    <td class="float-right"><button class="btn btn-primary btn-sm btn-tabela-adm" type="button"><i
+                          class="fa fa-edit"></i></button><button class="btn btn-danger btn-sm btn-tabela-adm"
+                        type="button" disabled="disabled"><i class="fa fa-trash-o"></i></button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

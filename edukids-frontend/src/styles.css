@@ -1,4 +1,21 @@
+/* @import "assets/css/Navigation-with-Search.css"; */
+@import "assets/css/Navigation-Clean.css";
 @import "assets/css/Login-Form-Clean.css";
+@import "assets/css/Registration-Form-with-Photo.css";
 body {
     background: #f1f7fc;
+}
+
+.tabela-adm {
+    background-color: rgb(255, 255, 255);
+    color: #08c479;
+    border-radius: 5px;
+}
+
+.btn-tabela-adm {
+    margin: 2px;
+}
+
+.row-adm {
+    margin-top: 10px;
 }

@@ -1,0 +1,9 @@
+.lista-menu {
+    position: absolute;
+    right: 0;
+    top: 54px;
+}
+
+.list-group-item {
+    cursor: pointer;
+}
