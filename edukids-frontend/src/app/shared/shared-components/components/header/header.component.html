@@ -1,19 +1,20 @@
 <nav class="navbar navbar-dark navbar-expand-md bg-primary navigation-clean-search">
-    <div class="container-fluid"><a class="navbar-brand text-white">
+    <div class="container-fluid"><a [routerLink]="['/private/dashboard']" routerLinkActive="router-link-active"
+            class="navbar-brand text-white">
             <img src="assets/img/Screenshot_2.png" style="width:28px;" />
             Edukids</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span
                 class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="nav navbar-nav ml-auto">
                 <div class="btn-group">
-                    <button type="button" (click)="exibirMenu = !exibirMenu" class="btn btn-primary">
-                        Sérgio Davi - <b>Adminstrador</b>
+                    <button type="button" (click)="alterarExibicaoMenu()" class="btn btn-primary">
+                        {{usuarioLogado?.nome}} - <b>{{usuarioLogado?.tipo | tipoUsuarioTradutor}}</b>
                         <span class="ml-2">
                             <i class="fas fa-bars"></i>
                         </span>
                     </button>
-                    <ul class="list-group lista-menu" data-aos="fade-left" *ngIf="exibirMenu">
-                        <li class="list-group-item" (click)="sair()">Sair</li>
+                    <ul class="list-group lista-menu" [attr.data-aos]="'fade-left'" *ngIf="exibirMenu">
+                        <li class="list-group-item bg-primary " (click)="sair()">Sair</li>
                     </ul>
                 </div>
             </ul>

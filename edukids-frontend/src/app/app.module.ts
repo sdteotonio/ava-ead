@@ -16,10 +16,10 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CoreModule.forRoot(),
     SharedComponentsModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
     ToastrModule.forRoot({
       preventDuplicates: true,
       timeOut: 5000,

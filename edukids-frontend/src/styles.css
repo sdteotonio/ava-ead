@@ -1,4 +1,6 @@
 /* @import "assets/css/Navigation-with-Search.css"; */
+
+@import "assets/css/ngx-tastr.css";
 @import "assets/css/Navigation-Clean.css";
 @import "assets/css/Login-Form-Clean.css";
 @import "assets/css/Registration-Form-with-Photo.css";

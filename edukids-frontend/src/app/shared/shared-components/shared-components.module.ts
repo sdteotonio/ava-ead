@@ -1,24 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 import { BsDropdownModule } from 'ngx-bootstrap';
-import { ToastrModule } from 'ngx-toastr';
+import { SharedPipesModule } from '../shared-pipes/shared-pipes.module';
+import { CardFormularioComponent } from './components/card-formulario/card-formulario.component';
 import { CardItensAdminComponent } from './components/card-itens-admin/card-itens-admin.component';
 import { HeaderComponent } from './components/header/header.component';
 @NgModule({
-  declarations: [HeaderComponent, CardItensAdminComponent],
+  declarations: [HeaderComponent, CardItensAdminComponent, CardFormularioComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    RouterModule,
+    SharedPipesModule
   ],
   exports: [
     HeaderComponent,
     ReactiveFormsModule,
     FormsModule,
     CardItensAdminComponent,
-    BsDropdownModule
+    BsDropdownModule,
+    CardFormularioComponent
   ]
 })
 export class SharedComponentsModule { }

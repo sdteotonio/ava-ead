@@ -1,2 +1,77 @@
-<app-card-itens-admin titulo="Professores" descricao="Professores cadastrados no sistema"
-    (adicionarEvt)="cadastrarProfessor()"></app-card-itens-admin>
+<app-card-itens-admin color="#08c479" titulo="Professores" descricao="Professores cadastrados no sistema"
+    *ngIf="usuarioLogado?.tipo === tipoUsuarioEnum.ADMIN" (adicionarEvt)="cadastrarProfessor()">
+    <div class="table-responsive tabela-adm">
+        <table class="table" *ngIf="(listaProfessor | async)?.length > 0">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Nome</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let professor of listaProfessor | async">
+                    <td>{{professor?.email}}</td>
+                    <td>{{professor?.nome}}</td>
+                    <td class="float-right">
+                        <button class="btn btn-primary btn-sm btn-tabela-adm" disabled type="button"><i
+                                class="fa fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm btn-tabela-adm" disabled type="button"
+                            disabled="disabled"><i class="fa fa-trash"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</app-card-itens-admin>
+
+<app-card-itens-admin color="#08c479" titulo="Alunos" descricao="Alunos cadastrados no sistema"
+    *ngIf="usuarioLogado?.tipo === tipoUsuarioEnum.PROFESSOR" (adicionarEvt)="cadastrarAluno()">
+    <div class="table-responsive tabela-adm">
+        <table class="table" *ngIf="(listaAlunos | async)?.length > 0">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Nome</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let aluno of listaAlunos | async">
+                    <td>{{aluno?.email}}</td>
+                    <td>{{aluno?.nome}}</td>
+                    <td class="float-right">
+                        <button class="btn btn-primary btn-sm btn-tabela-adm" disabled type="button"><i
+                                class="fa fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm btn-tabela-adm" disabled type="button"
+                            disabled="disabled"><i class="fa fa-trash"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</app-card-itens-admin>
+
+<app-card-itens-admin color="#ffbd59" titulo="Turmas" descricao="Turmas cadastradas no sistema"
+    *ngIf="usuarioLogado?.tipo === tipoUsuarioEnum.PROFESSOR" (adicionarEvt)="cadastrarAluno()">
+    <div class="table-responsive tabela-adm">
+        <table class="table" *ngIf="(listaAlunos | async)?.length > 0">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Quantidade de alunos</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let turma of listaTurmas | async">
+                    <td>{{turma?.nome}}</td>
+                    <td>{{turma?.alunos?.length}}</td>
+                    <td class="float-right">
+                        <button class="btn btn-primary btn-sm btn-tabela-adm" disabled type="button"><i
+                                class="fa fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm btn-tabela-adm" disabled type="button"
+                            disabled="disabled"><i class="fa fa-trash"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</app-card-itens-admin>

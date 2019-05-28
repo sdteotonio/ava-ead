@@ -11,6 +11,9 @@ export class CardItensAdminComponent implements OnInit {
   titulo: string;
 
   @Input()
+  color: string;
+
+  @Input()
   descricao: string;
 
   @Output()
