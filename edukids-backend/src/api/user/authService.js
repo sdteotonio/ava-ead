@@ -43,6 +43,7 @@ const validateToken = (req, res, next) => {
 const signup = (req, res, next) => {
     const name = req.body.name || ''
     const email = req.body.email || ''
+    const tipoUser = req.body.tipo_user || ''
     const password = req.body.password || ''
     const confirmPassword = req.body.confirm_password || ''
 
@@ -70,7 +71,7 @@ const signup = (req, res, next) => {
         } else if (user) {
             return res.status(400).send({ errors: ['Usuário já cadastrado.'] })
         } else {
-            const newUser = new User({ name, email, password: passwordHash })
+            const newUser = new User({ name, email, tipoUser, password: passwordHash })
             newUser.save(err => {
                 if (err) {
                     return sendErrorsFromDB(res, err)
