@@ -21,3 +21,11 @@ body {
 .row-adm {
     margin-top: 10px;
 }
+
+ngx-spinner>div {
+    position: fixed !important;
+}
+
+.no-over {
+    overflow: hidden;
+}

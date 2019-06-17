@@ -1,3 +1,23 @@
-<p>
-  cadastrar-turma works!
-</p>
+<app-card-formulario>
+  <form [formGroup]="formCadastro">
+    <h2 class="text-center"><strong>Cadastrar</strong>&nbsp;turma.</h2>
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input class="form-control" formControlName="nome" type="text" name="nome">
+    </div>
+    <div class="form-group">
+      <label for="professorId">Professor da turma</label>
+      <select class="form-control" formControlName="professorId">
+        <option *ngFor="let item of listaProfessores" [value]="item.id">{{item.nome}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="alunos">Alunos</label>
+      <ngx-select [multiple]="true" [items]="listaAlunos" placeholder="Pesquise por um aluno..."
+        (selectionChanges)="addAluno($event)" [optionTextField]="'nome'" [multiple]="true" [optionValueField]="'id'">
+      </ngx-select>
+    </div>
+    <div class="form-group"><button class="btn btn-primary btn-block" (click)="gravar()" type="submit">Gravar</button>
+    </div>
+  </form>
+</app-card-formulario>

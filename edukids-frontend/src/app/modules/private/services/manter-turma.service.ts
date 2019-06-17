@@ -1,20 +1,36 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { TurmaModel } from '../models/turma.model';
-import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class ManterTurmaService {
-    private turmas: TurmaModel[];
-    constructor() { }
 
-    addTurma(turma: TurmaModel): Observable<TurmaModel[]> {
-        this.turmas.push(turma);
-        return of(this.turmas);
+    constructor(
+        private http: HttpClient
+    ) { }
+
+    addTurma(turma: TurmaModel): Observable<any> {
+        return this.http.post(`${environment.apiUrl}/turmas`, turma);
+    }
+
+    atualizarTurma(turma: TurmaModel): Observable<any> {
+        return this.http.put(`${environment.apiUrl}/turmas/${turma.id}`, turma);
     }
 
     listarTurmasByProfessor(idProfessor: number): Observable<TurmaModel[]> {
-        console.log('Id Professor: ', idProfessor);
-        return of(this.turmas);
+        return this.http.get<TurmaModel[]>(`${environment.apiUrl}/turmas?professorId=${idProfessor}`);
     }
+
+    recuperarTurma(id: number): Observable<TurmaModel> {
+        return this.http.get<TurmaModel>(`${environment.apiUrl}/turmas/${id}`);
+    }
+
+    listarTurmas(): Observable<TurmaModel[]> {
+        return this.http.get<TurmaModel[]>(`${environment.apiUrl}/turmas`);
+    }
+
+
 
 }

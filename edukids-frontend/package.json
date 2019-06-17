@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "db": "json-server db.js --port 4500 -d 500 --w"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +27,8 @@
     "core-js": "^2.5.4",
     "jquery": "3.3.1",
     "ngx-bootstrap": "^4.2.0",
+    "ngx-select-ex": "^3.6.10",
+    "ngx-spinner": "^7.1.4",
     "ngx-toastr": "9.1.1",
     "popper.js": "1.14.3",
     "rxjs": "~6.3.3",

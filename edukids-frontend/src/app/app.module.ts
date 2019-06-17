@@ -1,6 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalModule } from 'ngx-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,8 +15,8 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
     AppComponent
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
+    ModalModule.forRoot(),
+    HttpClientModule,
     CoreModule.forRoot(),
     SharedComponentsModule,
     AppRoutingModule,

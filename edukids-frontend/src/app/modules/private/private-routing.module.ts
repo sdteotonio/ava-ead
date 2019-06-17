@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AreaAlunoComponent } from './components/area-aluno/area-aluno.component';
+import { CadastrarTurmaComponent } from './components/cadastrar-turma/cadastrar-turma.component';
 import { CadastroAlunoComponent } from './components/cadastro-aluno/cadastro-aluno.component';
 import { CadastroProfessorComponent } from './components/cadastro-professor/cadastro-professor.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -20,8 +21,20 @@ const routes: Routes = [
         component: CadastroProfessorComponent
       }
       , {
+        path: 'manter-professor/:id',
+        component: CadastroProfessorComponent
+      }
+      , {
         path: 'manter-aluno',
         component: CadastroAlunoComponent
+      }
+      , {
+        path: 'manter-aluno/:id',
+        component: CadastroAlunoComponent
+      }
+      , {
+        path: 'manter-turma',
+        component: CadastrarTurmaComponent
       }
     ]
   },

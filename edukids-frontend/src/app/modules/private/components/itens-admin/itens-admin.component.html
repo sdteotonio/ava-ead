@@ -11,13 +11,13 @@
             </thead>
             <tbody>
                 <tr *ngFor="let professor of listaProfessor | async">
-                    <td>{{professor?.email}}</td>
+                    <td><b>{{professor?.email}}</b></td>
                     <td>{{professor?.nome}}</td>
                     <td class="float-right">
-                        <button class="btn btn-primary btn-sm btn-tabela-adm" disabled type="button"><i
-                                class="fa fa-edit"></i></button>
-                        <button class="btn btn-danger btn-sm btn-tabela-adm" disabled type="button"
-                            disabled="disabled"><i class="fa fa-trash"></i></button></td>
+                        <button class="btn btn-primary btn-sm btn-tabela-adm" (click)="cadastrarProfessor(professor.id)"
+                            type="button"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm btn-tabela-adm" (click)="removerProfessor(professor?.id)"
+                            type="button"><i class="fa fa-trash"></i></button></td>
                 </tr>
             </tbody>
         </table>
@@ -25,7 +25,8 @@
 </app-card-itens-admin>
 
 <app-card-itens-admin color="#08c479" titulo="Alunos" descricao="Alunos cadastrados no sistema"
-    *ngIf="usuarioLogado?.tipo === tipoUsuarioEnum.PROFESSOR" (adicionarEvt)="cadastrarAluno()">
+    *ngIf="usuarioLogado?.tipo === tipoUsuarioEnum.PROFESSOR || usuarioLogado?.tipo === tipoUsuarioEnum.ADMIN"
+    (adicionarEvt)="cadastrarAluno()">
     <div class="table-responsive tabela-adm">
         <table class="table" *ngIf="(listaAlunos | async)?.length > 0">
             <thead>
@@ -37,13 +38,13 @@
             </thead>
             <tbody>
                 <tr *ngFor="let aluno of listaAlunos | async">
-                    <td>{{aluno?.email}}</td>
+                    <td><b>{{aluno?.email}}</b></td>
                     <td>{{aluno?.nome}}</td>
                     <td class="float-right">
-                        <button class="btn btn-primary btn-sm btn-tabela-adm" disabled type="button"><i
-                                class="fa fa-edit"></i></button>
-                        <button class="btn btn-danger btn-sm btn-tabela-adm" disabled type="button"
-                            disabled="disabled"><i class="fa fa-trash"></i></button></td>
+                        <button class="btn btn-primary btn-sm btn-tabela-adm" (click)="cadastrarAluno(aluno?.id)"
+                            type="button"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm btn-tabela-adm" (click)="removerAluno(aluno.id)"
+                            type="button"><i class="fa fa-trash"></i></button></td>
                 </tr>
             </tbody>
         </table>
@@ -51,7 +52,8 @@
 </app-card-itens-admin>
 
 <app-card-itens-admin color="#ffbd59" titulo="Turmas" descricao="Turmas cadastradas no sistema"
-    *ngIf="usuarioLogado?.tipo === tipoUsuarioEnum.PROFESSOR" (adicionarEvt)="cadastrarAluno()">
+    *ngIf="usuarioLogado?.tipo === tipoUsuarioEnum.PROFESSOR || usuarioLogado?.tipo === tipoUsuarioEnum.ADMIN"
+    (adicionarEvt)="cadastrarTurma()">
     <div class="table-responsive tabela-adm">
         <table class="table" *ngIf="(listaAlunos | async)?.length > 0">
             <thead>
@@ -63,13 +65,15 @@
             </thead>
             <tbody>
                 <tr *ngFor="let turma of listaTurmas | async">
-                    <td>{{turma?.nome}}</td>
-                    <td>{{turma?.alunos?.length}}</td>
-                    <td class="float-right">
-                        <button class="btn btn-primary btn-sm btn-tabela-adm" disabled type="button"><i
-                                class="fa fa-edit"></i></button>
-                        <button class="btn btn-danger btn-sm btn-tabela-adm" disabled type="button"
-                            disabled="disabled"><i class="fa fa-trash"></i></button></td>
+                    <ng-container *ngIf="turma.alunos.length > 0">
+                        <td><b>{{turma?.nome}}</b></td>
+                        <td>{{turma?.alunos?.length}}</td>
+                        <td class="float-right">
+                            <button class="btn btn-primary btn-sm btn-tabela-adm" (click)="addAlunoturma(turma)"
+                                type="button">Adicionar alunos <i class="fa fa-user"></i></button>
+
+                        </td>
+                    </ng-container>
                 </tr>
             </tbody>
         </table>

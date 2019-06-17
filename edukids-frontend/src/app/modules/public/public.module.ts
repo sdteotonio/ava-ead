@@ -4,6 +4,7 @@ import { SharedComponentsModule } from 'src/app/shared/shared-components/shared-
 import { LoginComponent } from './components/login/login.component';
 import { PaginaInicialComponent } from './components/pagina-inicial/pagina-inicial.component';
 import { PublicRoutingModule } from './public-routing.module';
+import { LoginService } from './services/login.service';
 
 
 @NgModule({
@@ -12,6 +13,9 @@ import { PublicRoutingModule } from './public-routing.module';
     CommonModule,
     PublicRoutingModule,
     SharedComponentsModule
+  ],
+  providers: [
+    LoginService
   ]
 })
 export class PublicModule { }
