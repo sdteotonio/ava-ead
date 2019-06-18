@@ -44,7 +44,7 @@ export class CadastrarTurmaComponent implements OnInit {
           value: userLogado.tipo === TipoUsuarioEnum.PROFESSOR ? userLogado.id : null,
           disabled: userLogado.tipo === TipoUsuarioEnum.PROFESSOR
         }, [Validators.required]],
-      alunos: [[], [Validators.required]],
+      alunos: [[]],
       dataInicio: [null, [Validators.required]],
       dataFim: [null, [Validators.required]]
     });

@@ -20,7 +20,6 @@ export class ModalAddAlunoTurmaComponent implements OnInit, AfterViewInit {
 
   close$: EventEmitter<any> = new EventEmitter();
 
-  private alterado = false;
   dis = true;
   constructor(
     private ref: BsModalRef,
@@ -48,19 +47,16 @@ export class ModalAddAlunoTurmaComponent implements OnInit, AfterViewInit {
   salvar() {
     this.manterTurma.atualizarTurma(this.turma).subscribe(() => {
       this.toastr.success(MensagemEnum.DADOS_ATUALIZADO.replace('VALUE', 'Turma'));
+      this.close$.emit();
       this.fechar();
     });
   }
 
   selecionadosEvt(listaSelecionados: NgxSelectOption[]) {
-    this.alterado = true;
     this.turma.alunos = listaSelecionados.map(item => item.data.id);
   }
 
   fechar() {
-    if (this.alterado) {
-      this.close$.emit();
-    }
     this.ref.hide();
   }
 

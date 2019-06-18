@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Selecionar Turma</h4>
+</div>
+<div class="modal-body">
+  <ng-container *ngIf="listaturmas?.length > 0 else voltarTem">
+
+    <select class="form-control" #sel>
+      <option *ngFor="let turma of listaturmas" [value]="turma.id">{{turma.nome}} |
+        <b>{{turma.dataInicio | date:'dd/MM/yyyy'}}</b></option>
+    </select>
+    <div class="mt-3 d-flex flex-row-reverse">
+      <button type="button" class="btn btn-primary" (click)="escolherTurma(sel.value)">Confirmar</button>
+    </div>
+  </ng-container>
+  <ng-template #voltarTem>
+    <h6>Não há turmas relacionadas ao seu perfil.</h6>
+    <p>Entre em contato com o seu professor</p>
+    <div class="mt-3 d-flex flex-row-reverse">
+      <button type="button" class="btn btn-primary btn-block" (click)="voltar()">Voltar</button>
+    </div>
+  </ng-template>
+</div>

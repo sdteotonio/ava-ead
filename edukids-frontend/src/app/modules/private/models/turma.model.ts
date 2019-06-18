@@ -1,10 +1,9 @@
-import { AlunoModel } from './aluno.model';
 
 export interface TurmaModel {
     id?: number;
     nome: string;
     professorId?: number;
-    alunos: AlunoModel[];
+    alunos: number[];
     dataInicio: number;
     dataFim: number;
 }

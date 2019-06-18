@@ -14,6 +14,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ModalAddAlunoTurmaComponent } from './components/modal-add-aluno-turma/modal-add-aluno-turma.component';
 import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
 import { ModalAddConteudoComponent } from './components/modal-add-conteudo/modal-add-conteudo.component';
+import { ModalSelecionarTurmaComponent } from './components/modal-selecionar-turma/modal-selecionar-turma.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ModalAddConteudoComponent } from './components/modal-add-conteudo/modal
     CardFormularioComponent,
     ModalDialogComponent,
     ModalAddAlunoTurmaComponent,
-    ModalAddConteudoComponent
+    ModalAddConteudoComponent,
+    ModalSelecionarTurmaComponent
   ],
   imports: [
     CommonModule,
@@ -48,8 +50,9 @@ import { ModalAddConteudoComponent } from './components/modal-add-conteudo/modal
     CardFormularioComponent,
     ModalDialogComponent,
     ModalAddAlunoTurmaComponent,
-    ModalAddConteudoComponent
+    ModalAddConteudoComponent,
+    ModalSelecionarTurmaComponent
   ],
-  entryComponents: [ModalDialogComponent, ModalAddAlunoTurmaComponent, ModalAddConteudoComponent]
+  entryComponents: [ModalDialogComponent, ModalAddAlunoTurmaComponent, ModalAddConteudoComponent, ModalSelecionarTurmaComponent]
 })
 export class SharedComponentsModule { }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { TurmaModel } from '../models/turma.model';
 
@@ -21,6 +22,17 @@ export class ManterTurmaService {
 
     listarTurmasByProfessor(idProfessor: number): Observable<TurmaModel[]> {
         return this.http.get<TurmaModel[]>(`${environment.apiUrl}/turmas?professorId=${idProfessor}`);
+    }
+
+    listarTurmasByAluno(idAluno: number): Observable<TurmaModel[]> {
+        return this.http.get<TurmaModel[]>(`${environment.apiUrl}/turmas`)
+            .pipe(
+                switchMap(turmas => {
+                    return of(turmas.filter(turma => {
+                        return turma.alunos.some(a => a === idAluno);
+                    }));
+                })
+            );
     }
 
     recuperarTurma(id: number): Observable<TurmaModel> {

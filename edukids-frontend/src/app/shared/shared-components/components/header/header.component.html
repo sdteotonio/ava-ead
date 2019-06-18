@@ -14,7 +14,12 @@
                         </span>
                     </button>
                     <ul class="list-group lista-menu" [attr.data-aos]="'fade-left'" *ngIf="exibirMenu">
-                        <li class="list-group-item bg-primary " (click)="sair()">Sair</li>
+                        <li class="list-group-item bg-primary" *ngIf="usuarioLogado.tipo === tipoUsuario.ALUNO">
+                            <span (click)="alerarTurma$.emit()">
+                                Alterar turma
+                            </span>
+                        </li>
+                        <li class="list-group-item bg-primary" (click)="sair()">Sair</li>
                     </ul>
                 </div>
             </ul>
