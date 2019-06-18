@@ -3,6 +3,7 @@ import { BsModalService } from 'ngx-bootstrap';
 import { Observable } from 'rxjs';
 import { TurmaModel } from 'src/app/modules/private/models/turma.model';
 import { ModalAddAlunoTurmaComponent } from 'src/app/shared/shared-components/components/modal-add-aluno-turma/modal-add-aluno-turma.component';
+import { ModalAddConteudoComponent } from 'src/app/shared/shared-components/components/modal-add-conteudo/modal-add-conteudo.component';
 import { ModalDialogComponent } from 'src/app/shared/shared-components/components/modal-dialog/modal-dialog.component';
 
 @Injectable()
@@ -24,10 +25,20 @@ export class FabricaModalService {
 
   modalAddAlunoTurma(turmaModel: TurmaModel): Observable<any> {
     return this.bsModalS.show(ModalAddAlunoTurmaComponent, {
-      class: 'modal-dialog-centered modal-lg',
+      class: 'modal-lg',
       initialState: {
         turma: turmaModel
       }
     }).content.close$;
+  }
+
+  modalAddConteudoTurma(turmaModel: TurmaModel) {
+    return this.bsModalS.show(ModalAddConteudoComponent, {
+      class: ' modal-lg',
+      ignoreBackdropClick: true,
+      initialState: {
+        turma: turmaModel
+      }
+    });
   }
 }

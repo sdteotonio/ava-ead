@@ -3,9 +3,11 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { DisciplinaService } from 'src/app/core/services/disciplina.service';
 import { FabricaModalService } from 'src/app/core/services/fabrica-modal.service';
 import { MensagemEnum } from 'src/app/shared/shared-models/enum/mensagem.enum';
 import { TipoUsuarioEnum } from 'src/app/shared/shared-models/enum/tipo-usuario.enum';
+import { DisciplinaModel } from 'src/app/shared/shared-models/interface/disciplina.model';
 import { UsuarioModel } from 'src/app/shared/shared-models/interface/usuario.model';
 import { AlunoModel } from '../../models/aluno.model';
 import { ProfessorModel } from '../../models/professor.model';
@@ -23,6 +25,7 @@ export class ItensAdminComponent implements OnInit {
   listaProfessor: Observable<ProfessorModel[]>;
   listaAlunos: Observable<AlunoModel[]>;
   listaTurmas: Observable<TurmaModel[]>;
+  listaDisciplinas$: Observable<DisciplinaModel[]>;
   usuarioLogado: UsuarioModel;
   tipoUsuarioEnum = TipoUsuarioEnum;
 
@@ -33,7 +36,8 @@ export class ItensAdminComponent implements OnInit {
     private manterAluno: ManterAlunoService,
     private manterTurma: ManterTurmaService,
     private fabricaModalService: FabricaModalService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private disciplinaService: DisciplinaService
   ) { }
 
   ngOnInit() {
@@ -62,6 +66,8 @@ export class ItensAdminComponent implements OnInit {
   carregarTurmas() {
     this.listaTurmas = this.usuarioLogado.tipo === TipoUsuarioEnum.ADMIN ? this.manterTurma.listarTurmas() :
       this.manterTurma.listarTurmasByProfessor(this.usuarioLogado.id);
+
+    this.listaDisciplinas$ = this.disciplinaService.listarDisciplinas();
   }
 
   carregarAlunos() {
@@ -111,6 +117,10 @@ export class ItensAdminComponent implements OnInit {
     this.fabricaModalService.modalAddAlunoTurma(turma).subscribe(() => {
       this.carregarTurmas();
     });
+  }
+
+  addConteudoTurma(turma: TurmaModel) {
+    this.fabricaModalService.modalAddConteudoTurma(turma);
   }
 
 }

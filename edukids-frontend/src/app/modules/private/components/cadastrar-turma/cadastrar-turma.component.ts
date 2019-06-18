@@ -35,6 +35,7 @@ export class CadastrarTurmaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     const userLogado = this.auth.getUsuarioLogado<ProfessorModel>();
     this.formCadastro = this.formBuidler.group({
       nome: [null, [Validators.required]],
@@ -43,7 +44,9 @@ export class CadastrarTurmaComponent implements OnInit {
           value: userLogado.tipo === TipoUsuarioEnum.PROFESSOR ? userLogado.id : null,
           disabled: userLogado.tipo === TipoUsuarioEnum.PROFESSOR
         }, [Validators.required]],
-      alunos: [[], [Validators.required]]
+      alunos: [[], [Validators.required]],
+      dataInicio: [null, [Validators.required]],
+      dataFim: [null, [Validators.required]]
     });
     if (userLogado.tipo === TipoUsuarioEnum.ADMIN) {
       this.carregarProfessores();
@@ -80,6 +83,11 @@ export class CadastrarTurmaComponent implements OnInit {
     this.formCadastro.get('alunos').setValue(
       selecionados.map(item => item.data.id)
     );
+  }
+
+  selecionarPeriodo(evt: Date[]) {
+    this.formCadastro.get('dataInicio').setValue(evt[0].getTime());
+    this.formCadastro.get('dataFim').setValue(evt[1].getTime());
   }
 
 }

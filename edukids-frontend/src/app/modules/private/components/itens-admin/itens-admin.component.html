@@ -6,6 +6,7 @@
                 <tr>
                     <th>Email</th>
                     <th>Nome</th>
+                    <th>Instituição</th>
                     <th></th>
                 </tr>
             </thead>
@@ -13,6 +14,7 @@
                 <tr *ngFor="let professor of listaProfessor | async">
                     <td><b>{{professor?.email}}</b></td>
                     <td>{{professor?.nome}}</td>
+                    <td>{{professor?.instituicao}}</td>
                     <td class="float-right">
                         <button class="btn btn-primary btn-sm btn-tabela-adm" (click)="cadastrarProfessor(professor.id)"
                             type="button"><i class="fa fa-edit"></i></button>
@@ -24,7 +26,7 @@
     </div>
 </app-card-itens-admin>
 
-<app-card-itens-admin color="#08c479" titulo="Alunos" descricao="Alunos cadastrados no sistema"
+<app-card-itens-admin color="#007bff" titulo="Alunos" descricao="Alunos cadastrados no sistema"
     *ngIf="usuarioLogado?.tipo === tipoUsuarioEnum.PROFESSOR || usuarioLogado?.tipo === tipoUsuarioEnum.ADMIN"
     (adicionarEvt)="cadastrarAluno()">
     <div class="table-responsive tabela-adm">
@@ -60,20 +62,33 @@
                 <tr>
                     <th>Nome</th>
                     <th>Quantidade de alunos</th>
+                    <th>Data de início</th>
+                    <th>Data de conclusão</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let turma of listaTurmas | async">
-                    <ng-container *ngIf="turma.alunos.length > 0">
-                        <td><b>{{turma?.nome}}</b></td>
-                        <td>{{turma?.alunos?.length}}</td>
-                        <td class="float-right">
-                            <button class="btn btn-primary btn-sm btn-tabela-adm" (click)="addAlunoturma(turma)"
-                                type="button">Adicionar alunos <i class="fa fa-user"></i></button>
-
-                        </td>
+                    <td>
+                        <b>{{turma?.nome}}</b>
+                    </td>
+                    <td>{{turma?.alunos?.length}}</td>
+                    <ng-container *ngIf="(turma.alunos.length > 0 ) else turm">
+                        <td>{{(turma?.dataInicio | date:'dd/MM/yyyy')}}</td>
+                        <td>{{(turma?.dataFim | date:'dd/MM/yyyy')}}</td>
                     </ng-container>
+                    <ng-template #turm>
+                        <td>--</td>
+                        <td>--</td>
+                    </ng-template>
+                    <td class="float-right">
+                        <button class="btn btn-primary btn-sm btn-tabela-adm" (click)="addConteudoTurma(turma)"
+                            type="button">Conteúdos <i class="fas fa-book"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm btn-tabela-adm" (click)="addAlunoturma(turma)"
+                            type="button">Alunos <i class="fa fa-user"></i>
+                        </button>
+                    </td>
                 </tr>
             </tbody>
         </table>

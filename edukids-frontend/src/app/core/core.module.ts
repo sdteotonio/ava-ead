@@ -3,6 +3,8 @@ import { ModuleWithProviders } from '@angular/compiler/src/core';
 import { NgModule } from '@angular/core';
 import { AppInterceptor } from './services/app-interceptor';
 import { AuthService } from './services/auth.service';
+import { ConteudoService } from './services/conteudo.service';
+import { DisciplinaService } from './services/disciplina.service';
 import { FabricaModalService } from './services/fabrica-modal.service';
 import { NegocioService } from './services/negocio.service';
 import { UsuarioService } from './services/usuario.service';
@@ -24,7 +26,9 @@ export class CoreModule {
         AuthService,
         FabricaModalService,
         UsuarioService,
-        NegocioService
+        NegocioService,
+        DisciplinaService,
+        ConteudoService
       ]
     };
   }

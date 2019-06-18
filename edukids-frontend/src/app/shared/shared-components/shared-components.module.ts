@@ -13,13 +13,16 @@ import { CardItensAdminComponent } from './components/card-itens-admin/card-iten
 import { HeaderComponent } from './components/header/header.component';
 import { ModalAddAlunoTurmaComponent } from './components/modal-add-aluno-turma/modal-add-aluno-turma.component';
 import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.component';
+import { ModalAddConteudoComponent } from './components/modal-add-conteudo/modal-add-conteudo.component';
+
 @NgModule({
   declarations: [
     HeaderComponent,
     CardItensAdminComponent,
     CardFormularioComponent,
     ModalDialogComponent,
-    ModalAddAlunoTurmaComponent
+    ModalAddAlunoTurmaComponent,
+    ModalAddConteudoComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,7 @@ import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.com
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
-    SharedPipesModule,
+    SharedPipesModule
   ],
   exports: [
     HeaderComponent,
@@ -44,8 +47,9 @@ import { ModalDialogComponent } from './components/modal-dialog/modal-dialog.com
     BsDropdownModule,
     CardFormularioComponent,
     ModalDialogComponent,
-    ModalAddAlunoTurmaComponent
+    ModalAddAlunoTurmaComponent,
+    ModalAddConteudoComponent
   ],
-  entryComponents: [ModalDialogComponent, ModalAddAlunoTurmaComponent]
+  entryComponents: [ModalDialogComponent, ModalAddAlunoTurmaComponent, ModalAddConteudoComponent]
 })
 export class SharedComponentsModule { }

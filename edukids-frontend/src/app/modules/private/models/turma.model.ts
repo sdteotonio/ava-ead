@@ -5,4 +5,6 @@ export interface TurmaModel {
     nome: string;
     professorId?: number;
     alunos: AlunoModel[];
+    dataInicio: number;
+    dataFim: number;
 }

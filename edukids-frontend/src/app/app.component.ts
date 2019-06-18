@@ -1,6 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import * as AOS from 'aos';
 import * as $ from 'jquery';
+import { BsLocaleService } from 'ngx-bootstrap';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,7 +9,12 @@ import * as $ from 'jquery';
 })
 export class AppComponent implements AfterViewInit {
 
+  constructor(private localeService: BsLocaleService) {
+
+  }
+
   ngAfterViewInit(): void {
+    this.localeService.use('pt-br');
     $(document).ready(function () {
       AOS.init();
 

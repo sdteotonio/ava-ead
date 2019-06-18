@@ -11,13 +11,19 @@
         <option *ngFor="let item of listaProfessores" [value]="item.id">{{item.nome}}</option>
       </select>
     </div>
-    <div class="form-group">
+    <div class="form-group mb-5">
       <label for="alunos">Alunos</label>
       <ngx-select [multiple]="true" [items]="listaAlunos" placeholder="Pesquise por um aluno..."
         (selectionChanges)="addAluno($event)" [optionTextField]="'nome'" [multiple]="true" [optionValueField]="'id'">
       </ngx-select>
     </div>
+    <div class="form-group">
+      <label for="dataInicio">Data de início/conclusão</label>
+      <input type="text" class="form-control" [bsConfig]="{ adaptivePosition: true }"
+        (bsValueChange)="selecionarPeriodo($event)" bsDaterangepicker>
+    </div>
     <div class="form-group"><button class="btn btn-primary btn-block" (click)="gravar()" type="submit">Gravar</button>
     </div>
   </form>
+  <!-- {{formCadastro.data | date}} -->
 </app-card-formulario>

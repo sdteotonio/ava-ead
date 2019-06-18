@@ -1,0 +1,73 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Adicionar conteúdos</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="fechar()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <label>Título</label>
+        <input class="form-control" type="text" #conteudoTitulo>
+      </div>
+      <div class="col-6">
+        <label>Conteúdo</label>
+        <input class="form-control" type="text" #conteudoValor>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-6">
+        <label>Tipo</label>
+        <select class="form-control" #conteudoTipo>
+          <option *ngFor="let tipo of listaTipos" [value]="tipo">{{tipoMensagem[tipo]}} <i
+              [class]="tipoIcone[tipo]"></i>
+          </option>
+        </select>
+      </div>
+      <div class="col-6">
+        <label>Disciplina</label>
+        <select class="form-control" #disc>
+          <option *ngFor="let disc of listaDisciplinaEnum$ | async" [value]="disc.id">{{disc.nome}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="d-flex flex-row-reverse">
+      <div class="p-2">
+        <button type="button" class="btn btn-success"
+          (click)="addConteudo(conteudoTitulo.value,conteudoValor.value,conteudoTipo.value,disc.value)">Adicionar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body" *ngFor="let disciplina of listaDisciplinaEnum$ | async">
+    <h4>{{disciplina?.nome}} <i [class]="DisciplinaEnumIcone[disciplina.id]"></i></h4>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th class="text-left">Conteúdo</th>
+            <th class="text-left">Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let conteudoPt of observables[disciplina.id] | async">
+            <td>{{conteudoPt?.titulo}}</td>
+            <td>{{conteudoPt?.conteudo}} <i [class]="tipoIcone[conteudoPt?.tipo]"></i></td>
+            <td class="float-right">
+              <button class="btn btn-danger btn-sm btn-tabela-adm" type="button" (click)="removerCon(conteudoPt)"> <i
+                  class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="mt-3 d-flex flex-row-reverse">
+    <button type="button" class="mr-2 btn btn-secondary" (click)="fechar()">Fechar</button>
+  </div>
+</div>

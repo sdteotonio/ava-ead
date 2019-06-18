@@ -26,7 +26,7 @@ import { SharedComponentsModule } from './shared/shared-components/shared-compon
       positionClass: 'toast-top-right'
     }),
     PublicModule,
-    PrivateModule
+    PrivateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
