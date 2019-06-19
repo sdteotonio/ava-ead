@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class ConteudoService {
 
+
   constructor(
     private http: HttpClient
   ) { }
@@ -18,6 +19,10 @@ export class ConteudoService {
 
   addConteudo(conte: ConteudoModel): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/conteudos`, conte);
+  }
+
+  atualizarConteudo(contSelecionado: ConteudoModel) {
+    return this.http.put<any>(`${environment.apiUrl}/conteudos/${contSelecionado.id}`, contSelecionado);
   }
 
   removerConteudo(conteId: number): Observable<any> {

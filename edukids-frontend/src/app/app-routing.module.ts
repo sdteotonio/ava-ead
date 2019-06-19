@@ -5,7 +5,7 @@ const routes: Routes = [
     path: '',
     redirectTo: 'edukids/login',
     pathMatch: 'full'
-  }
+  },
 ];
 
 @NgModule({

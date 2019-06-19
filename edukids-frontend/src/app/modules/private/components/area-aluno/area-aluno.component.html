@@ -17,26 +17,46 @@
               em qualquer hora e lugar. Tudo vai se tornar mais fácil. Vem com a gente!</p>
           </div>
           <div class="row">
-            <div class="col">
+            <div class="col" *ngIf="listas[DisciplinaEnum.PT]?.conteudos?.length > 0 else naoTemConteudo">
               <h5 style="color:#226699;"><b>Conteúdo</b></h5>
               <accordion>
                 <div class="progress mb-3">
-                  <div class="progress-bar progress-bar-striped" aria-valuenow="50" aria-valuemin="0"
-                    aria-valuemax="100" [style.width]="conteudosPt?.percentual+'%'">{{conteudosPt?.percentual}}%</div>
+                  <div class="progress-bar progress-bar-striped" aria-valuemax="100"
+                    [style.width]="listas[DisciplinaEnum.PT]?.percentual+'%'">
+                    {{listas[DisciplinaEnum.PT]?.percentual}}%</div>
                 </div>
-                <accordion-group [heading]="conteudo?.categoria" *ngFor="let conteudo of conteudosPt?.conteudos">
-                  <table class="table table-striped table-bordered">
+                <accordion-group [heading]="conteudo?.categoria"
+                  *ngFor="let conteudo of listas[DisciplinaEnum.PT]?.conteudos">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th colspan="4" class="text-right">
+                          Visualizado
+                        </th>
+                      </tr>
+                    </thead>
                     <tbody>
                       <tr *ngFor="let conteudoModel of conteudo?.conteudos">
-                        <td>{{conteudoModel?.titulo}}</td>
-                        <td>{{conteudoModel?.conteudo}}</td>
+                        <td><b>{{conteudoModel?.titulo}}</b></td>
+                        <td></td>
                         <td class="float-right">
                           <div class="btn-group" role="group">
-                            <button *ngIf="conteudoModel.tipo === TipoConteudoEnum.VIDEO" class="btn btn-primary"
+                            <button (click)="abrirconteudo(conteudoModel)"
+                              *ngIf="conteudoModel.tipo === TipoConteudoEnum.VIDEO" class="btn btn-primary"
                               type="button">Play&nbsp;<i class="fa fa-play"></i></button>
-                            <button class="btn btn-success" type="button">Exercícios&nbsp;<i class="fa fa-tasks"></i>
+                            <button (click)="abrirconteudo(conteudoModel)"
+                              *ngIf="conteudoModel.tipo === TipoConteudoEnum.ARQUIVO" class="btn btn-success"
+                              type="button">Aqruivos&nbsp;<i class="fa fa-tasks"></i>
+                            </button>
+                            <button (click)="abrirconteudo(conteudoModel)"
+                              *ngIf="conteudoModel.tipo === TipoConteudoEnum.PAGINA_WEB" class="btn btn-info"
+                              type="button">Acessar&nbsp;<i class="fa fa-tasks"></i>
                             </button>
                           </div>
+                        </td>
+                        <td class="text-center">
+                          <input type="checkbox" [checked]="verificarSelecionado(conteudoModel)"
+                            (click)="visu($event,conteudoModel)">
                         </td>
                       </tr>
                     </tbody>
@@ -44,6 +64,11 @@
                 </accordion-group>
               </accordion>
             </div>
+            <ng-template #naoTemConteudo>
+              <div class="col text-center text-muted">
+                Não há conteúdo cadastrado <i class="fas fa-exclamation-circle"></i>
+              </div>
+            </ng-template>
           </div>
         </div>
         <div class="col-sm-4"><img src="assets/img/Screenshot_4.png" style="width:297px;"></div>
@@ -62,9 +87,61 @@
               vamos
               estudar juntos, se dedicar ao material e aprender muito mais. Aqui a ciência é trabalhada de forma
               simples,
-              vem com a gente!</p><button class="btn btn-primary" type="button"
-              style="color: white; background-color:rgb(8,196,121);"
-              (click)="redirectConteudo(DisciplinaEnum.CI)">Acessar</button>
+              vem com a gente!</p>
+          </div>
+          <div class="row">
+            <div class="col" *ngIf="listas[DisciplinaEnum.CI]?.conteudos?.length > 0 else naoTemConteudo">
+              <h5 style="color:#226699;"><b>Conteúdo</b></h5>
+              <accordion>
+                <div class="progress mb-3">
+                  <div class="progress-bar progress-bar-striped" aria-valuemax="100"
+                    [style.width]="listas[DisciplinaEnum.CI]?.percentual+'%'">
+                    {{listas[DisciplinaEnum.CI]?.percentual}}%</div>
+                </div>
+                <accordion-group [heading]="conteudo?.categoria"
+                  *ngFor="let conteudo of listas[DisciplinaEnum.CI]?.conteudos">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th colspan="4" class="text-right">
+                          Visualizado
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let conteudoModel of conteudo?.conteudos">
+                        <td><b>{{conteudoModel?.titulo}}</b></td>
+                        <td></td>
+                        <td class="float-right">
+                          <div class="btn-group" role="group">
+                            <button (click)="abrirconteudo(conteudoModel)"
+                              *ngIf="conteudoModel.tipo === TipoConteudoEnum.VIDEO" class="btn btn-primary"
+                              type="button">Play&nbsp;<i class="fa fa-play"></i></button>
+                            <button (click)="abrirconteudo(conteudoModel)"
+                              *ngIf="conteudoModel.tipo === TipoConteudoEnum.ARQUIVO" class="btn btn-success"
+                              type="button">Aqruivos&nbsp;<i class="fa fa-tasks"></i>
+                            </button>
+                            <button (click)="abrirconteudo(conteudoModel)"
+                              *ngIf="conteudoModel.tipo === TipoConteudoEnum.PAGINA_WEB" class="btn btn-info"
+                              type="button">Acessar&nbsp;<i class="fa fa-tasks"></i>
+                            </button>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <input type="checkbox" [checked]="verificarSelecionado(conteudoModel)"
+                            (click)="visu($event,conteudoModel)">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </accordion-group>
+              </accordion>
+            </div>
+            <ng-template #naoTemConteudo>
+              <div class="col text-center text-muted">
+                Não há conteúdo cadastrado <i class="fas fa-exclamation-circle"></i>
+              </div>
+            </ng-template>
           </div>
         </div>
       </div>
@@ -81,9 +158,61 @@
               de
               difícil. Mas aqui você encontrará todo apoio para aprender com facilidade. Você pode acessar vários
               conteúdos e estudar mais em qualquer hora e lugar, para mostrar que essa matemática é boa Vem com a gente,
-              vamos calcular!</p><a class="btn btn-primary btn-sm" role="button"
-              style="color: white; background-color:rgb(221,46,68);"
-              (click)="redirectConteudo(DisciplinaEnum.MA)">Acessar</a>
+              vamos calcular!</p>
+          </div>
+          <div class="row">
+            <div class="col" *ngIf="listas[DisciplinaEnum.MA]?.conteudos?.length > 0 else naoTemConteudo">
+              <h5 style="color:#226699;"><b>Conteúdo</b></h5>
+              <accordion>
+                <div class="progress mb-3">
+                  <div class="progress-bar progress-bar-striped" aria-valuemax="100"
+                    [style.width]="listas[DisciplinaEnum.MA]?.percentual+'%'">
+                    {{listas[DisciplinaEnum.MA]?.percentual}}%</div>
+                </div>
+                <accordion-group [heading]="conteudo?.categoria"
+                  *ngFor="let conteudo of listas[DisciplinaEnum.MA]?.conteudos">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th colspan="4" class="text-right">
+                          Visualizado
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let conteudoModel of conteudo?.conteudos">
+                        <td><b>{{conteudoModel?.titulo}}</b></td>
+                        <td></td>
+                        <td class="float-right">
+                          <div class="btn-group" role="group">
+                            <button (click)="abrirconteudo(conteudoModel)"
+                              *ngIf="conteudoModel.tipo === TipoConteudoEnum.VIDEO" class="btn btn-primary"
+                              type="button">Play&nbsp;<i class="fa fa-play"></i></button>
+                            <button (click)="abrirconteudo(conteudoModel)"
+                              *ngIf="conteudoModel.tipo === TipoConteudoEnum.ARQUIVO" class="btn btn-success"
+                              type="button">Aqruivos&nbsp;<i class="fa fa-tasks"></i>
+                            </button>
+                            <button (click)="abrirconteudo(conteudoModel)"
+                              *ngIf="conteudoModel.tipo === TipoConteudoEnum.PAGINA_WEB" class="btn btn-info"
+                              type="button">Acessar&nbsp;<i class="fa fa-tasks"></i>
+                            </button>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <input type="checkbox" [checked]="verificarSelecionado(conteudoModel)"
+                            (click)="visu($event,conteudoModel)">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </accordion-group>
+              </accordion>
+            </div>
+            <ng-template #naoTemConteudo>
+              <div class="col text-center text-muted">
+                Não há conteúdo cadastrado <i class="fas fa-exclamation-circle"></i>
+              </div>
+            </ng-template>
           </div>
         </div>
         <div class="col-sm-4"><img src="assets/img/Screenshot_3.png" style="width:297px;"></div>
@@ -91,7 +220,7 @@
     </div>
   </div>
   <hr>
-  <div data-aos="fade-left" class="highlight-phone">
+  <div data-aos="fade-left" class="highlight-phone mb-5">
     <div class="container">
       <div class="row">
         <div class="col-sm-4"><img src="assets/img/Screenshot_5.png" style="width:297px;"></div>
@@ -101,8 +230,60 @@
             <p>Você meu aluno, seja bem-vindo a área do saber: História. Se você é curioso e gosta de descobrir novos
               fatos, esse é o melhor lugar, mas ta com dificuldade de aprender? Então vem estudar com a gente, pode
               acessar os materiais disponíveis e se dedicar! Vamos auxiliar você, entra nessa história de aprender!</p>
-            <button class="btn btn-primary" type="button" style="color: white; background-color:#ffbd59;"
-              (click)="redirectConteudo(DisciplinaEnum.HI)">Acessar</button>
+          </div>
+          <div class="row">
+            <div class="col" *ngIf="listas[DisciplinaEnum.HI]?.conteudos?.length > 0 else naoTemConteudo">
+              <h5 style="color:#226699;"><b>Conteúdo</b></h5>
+              <accordion>
+                <div class="progress mb-3">
+                  <div class="progress-bar progress-bar-striped" aria-valuemax="100"
+                    [style.width]="listas[DisciplinaEnum.HI]?.percentual+'%'">
+                    {{listas[DisciplinaEnum.HI]?.percentual}}%</div>
+                </div>
+                <accordion-group [heading]="conteudo?.categoria"
+                  *ngFor="let conteudo of listas[DisciplinaEnum.HI]?.conteudos">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th colspan="4" class="text-right">
+                          Visualizado
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let conteudoModel of conteudo?.conteudos">
+                        <td><b>{{conteudoModel?.titulo}}</b></td>
+                        <td></td>
+                        <td class="float-right">
+                          <div class="btn-group" role="group">
+                            <button (click)="abrirconteudo(conteudoModel)"
+                              *ngIf="conteudoModel.tipo === TipoConteudoEnum.VIDEO" class="btn btn-primary"
+                              type="button">Play&nbsp;<i class="fa fa-play"></i></button>
+                            <button (click)="abrirconteudo(conteudoModel)"
+                              *ngIf="conteudoModel.tipo === TipoConteudoEnum.ARQUIVO" class="btn btn-success"
+                              type="button">Aqruivos&nbsp;<i class="fa fa-tasks"></i>
+                            </button>
+                            <button (click)="abrirconteudo(conteudoModel)"
+                              *ngIf="conteudoModel.tipo === TipoConteudoEnum.PAGINA_WEB" class="btn btn-info"
+                              type="button">Acessar&nbsp;<i class="fa fa-tasks"></i>
+                            </button>
+                          </div>
+                        </td>
+                        <td class="text-center">
+                          <input type="checkbox" [checked]="verificarSelecionado(conteudoModel)"
+                            (click)="visu($event,conteudoModel)">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </accordion-group>
+              </accordion>
+            </div>
+            <ng-template #naoTemConteudo>
+              <div class="col text-center text-muted">
+                Não há conteúdo cadastrado <i class="fas fa-exclamation-circle"></i>
+              </div>
+            </ng-template>
           </div>
         </div>
       </div>

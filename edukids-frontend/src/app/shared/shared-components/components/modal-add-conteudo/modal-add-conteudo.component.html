@@ -5,51 +5,53 @@
   </button>
 </div>
 <div class="modal-body">
-  <div class="container">
-    <div class="row">
-      <div class="col-4">
-        <label>Título</label>
-        <input class="form-control" type="text" #conteudoTitulo>
-      </div>
-      <div class="col-8">
-        <label>Conteúdo</label>
-        <input class="form-control" type="text" #conteudoValor>
-      </div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-4">
-        <label>Tipo</label>
-        <select class="form-control" #conteudoTipo>
-          <option *ngFor="let tipo of listaTipos" [value]="tipo">{{tipoMensagem[tipo]}} <i
-              [class]="tipoIcone[tipo]"></i>
-          </option>
-        </select>
-      </div>
-      <div class="col-4">
-        <label>Categoria</label>
-        <input class="form-control" type="text" #conteudoCategoria>
-      </div>
-      <div class="col-4">
-        <label>Disciplina</label>
-        <select class="form-control" #disc>
-          <option *ngFor="let disc of listaDisciplinaEnum$ | async" [value]="disc.id">{{disc.nome}}
-          </option>
-        </select>
-      </div>
-    </div>
-    <div class="d-flex flex-row-reverse">
-      <div class="p-2">
-        <button type="button" class="btn btn-success" (click)="addConteudo(conteudoTitulo.value,conteudoValor.value,conteudoTipo.value,disc.value,conteudoCategoria.value);
-          conteudoTitulo.value = '';
-          conteudoValor.value = '';
-          conteudoTipo.value = '';
-          disc.value = '';
-          conteudoCategoria.value = '';
-          ">Adicionar</button>
-      </div>
-    </div>
-  </div>
+  <form [formGroup]="formCadastro">
 
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <label>Título</label>
+          <input formControlName="titulo" class="form-control" type="text">
+        </div>
+        <div class="col-8">
+          <label>Conteúdo</label>
+          <input formControlName="conteudo" class="form-control" type="text">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-4">
+          <label>Tipo</label>
+          <select formControlName="tipo" class="form-control">
+            <option *ngFor="let tipo of listaTipos" [value]="tipo">{{tipoMensagem[tipo]}} <i
+                [class]="tipoIcone[tipo]"></i>
+            </option>
+          </select>
+        </div>
+        <div class="col-4">
+          <label>Categoria</label>
+          <input formControlName="categoria" class="form-control" type="text">
+        </div>
+        <div class="col-4">
+          <label>Disciplina</label>
+          <select formControlName="disciplinaId" class="form-control" #disc>
+            <option *ngFor="let disc of listaDisciplinaEnum$ | async" [value]="disc.id">{{disc.nome}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="d-flex flex-row-reverse">
+        <div class="p-2">
+          <button type="button" *ngIf="contSelecionado == null else botoes" class="btn btn-success"
+            (click)="addConteudo(disc.value)">Adicionar</button>
+          <ng-template #botoes>
+            <button type="button" class="btn btn-secondary-outline mr-2" (click)="cancelar()">Cancelar</button>
+            <button type="button" class="btn btn-success" (click)="editar()">Salvar</button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+  </form>
   <div class="card-body" *ngFor="let disciplina of listaDisciplinaEnum$ | async">
     <h4>{{disciplina?.nome}} <i [class]="DisciplinaEnumIcone[disciplina.id]"></i></h4>
     <div class="table-responsive">
@@ -69,8 +71,12 @@
             <td>{{conteudoPt?.tipo}}</td>
             <td>{{conteudoPt?.categoria}}</td>
             <td class="float-right">
-              <button class="btn btn-danger btn-sm btn-tabela-adm" type="button" (click)="removerCon(conteudoPt)"> <i
-                  class="fas fa-trash"></i>
+              <button class="btn btn-primary btn-sm btn-tabela-adm" type="button" [disabled]="contSelecionado != null"
+                (click)="solicitarEditar(conteudoPt)">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-danger btn-sm btn-tabela-adm" type="button" [disabled]="contSelecionado != null"
+                (click)="removerCon(conteudoPt)"> <i class="fas fa-trash"></i>
               </button>
             </td>
           </tr>

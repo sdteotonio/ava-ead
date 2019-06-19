@@ -6,6 +6,7 @@ import { ModalAddAlunoTurmaComponent } from 'src/app/shared/shared-components/co
 import { ModalAddConteudoComponent } from 'src/app/shared/shared-components/components/modal-add-conteudo/modal-add-conteudo.component';
 import { ModalDialogComponent } from 'src/app/shared/shared-components/components/modal-dialog/modal-dialog.component';
 import { ModalSelecionarTurmaComponent } from 'src/app/shared/shared-components/components/modal-selecionar-turma/modal-selecionar-turma.component';
+import { ModalVideoComponent } from 'src/app/shared/shared-components/components/modal-video/modal-video.component';
 
 @Injectable()
 export class FabricaModalService {
@@ -51,5 +52,16 @@ export class FabricaModalService {
         alunoId
       }
     }).content.turmaEvt$;
+  }
+
+  modalVideo(titulo: string, iFrame: any) {
+    return this.bsModalS.show(ModalVideoComponent, {
+      class: 'modal-lg',
+      ignoreBackdropClick: true,
+      initialState: {
+        titulo,
+        iFrame
+      }
+    });
   }
 }

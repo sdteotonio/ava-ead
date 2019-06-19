@@ -14,6 +14,7 @@ import { PrivateRoutingModule } from './private-routing.module';
 import { ConteudoVisualizadoService } from './services/conteudo-aluno.service';
 import { ManterAlunoService } from './services/manter-aluno.service';
 import { ManterProfessorService } from './services/manter-professor.service';
+import { EmbedVideo } from 'ngx-embed-video';
 import { ManterTurmaService } from './services/manter-turma.service';
 defineLocale('pt-br', ptBrLocale);
 
@@ -31,6 +32,7 @@ defineLocale('pt-br', ptBrLocale);
     SharedComponentsModule,
     AccordionModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    EmbedVideo.forRoot()
   ],
   providers: [
     ManterProfessorService,

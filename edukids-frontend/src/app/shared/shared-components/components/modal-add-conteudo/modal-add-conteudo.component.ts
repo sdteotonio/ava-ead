@@ -9,6 +9,7 @@ import { TipoConteudoEnum, TipoConteudoEnumIcone, TipoConteudoEnumMensagem } fro
 import { DisciplinaEnum, DisciplinaEnumIcone } from 'src/app/shared/shared-models/enum/disciplina.enum';
 import { ConteudoModel } from 'src/app/shared/shared-models/interface/conteudo.model';
 import { DisciplinaModel } from 'src/app/shared/shared-models/interface/disciplina.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-add-conteudo',
@@ -19,7 +20,7 @@ export class ModalAddConteudoComponent implements OnInit {
   turma: TurmaModel;
   DisciplinaEnum = DisciplinaEnum;
   DisciplinaEnumIcone = DisciplinaEnumIcone;
-
+  formCadastro: FormGroup;
   funcoes = {
     [DisciplinaEnum.PT]: () => { this.consultarPt(); },
     [DisciplinaEnum.CI]: () => { this.consultarCi(); },
@@ -38,18 +39,30 @@ export class ModalAddConteudoComponent implements OnInit {
     [DisciplinaEnum.HI]: null,
     [DisciplinaEnum.MA]: null,
   };
+  contSelecionado: ConteudoModel;
 
   constructor(
     private bsModal: BsModalRef,
     private conteudoService: ConteudoService,
     private toast: ToastrService,
-    private disService: DisciplinaService
+    private disService: DisciplinaService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
     this.consultarConteudos();
     this.listaTipos = Object.values(TipoConteudoEnum);
     this.listaDisciplinaEnum$ = this.disService.listarDisciplinas();
+    this.criarForm();
+  }
+  criarForm() {
+    this.formCadastro = this.formBuilder.group({
+      conteudo: [null, [Validators.required]],
+      titulo: [null, [Validators.required]],
+      tipo: [TipoConteudoEnum.ARQUIVO, [Validators.required]],
+      disciplinaId: [DisciplinaEnum.PT, [Validators.required]],
+      categoria: [null, [Validators.required]]
+    });
   }
 
   consultarConteudos() {
@@ -72,21 +85,15 @@ export class ModalAddConteudoComponent implements OnInit {
     this.observables[DisciplinaEnum.PT] = this.conteudoService.conteudoByTurmaAndDiscipinas(this.turma.id, DisciplinaEnum.PT);
   }
 
-  addConteudo(titulo: string, conteudo: string, tipo: TipoConteudoEnum, disciplinaId: DisciplinaEnum, categoria: string) {
+  addConteudo(disciplinaId: DisciplinaEnum) {
 
-    const cont: ConteudoModel = {
-      conteudo,
-      titulo,
-      tipo,
-      disciplinaId,
-      categoria,
-      turmaId: this.turma.id
-    };
+    const cont: ConteudoModel = this.formCadastro.getRawValue();
+    cont.turmaId = this.turma.id;
     try {
       this.validarConteudo(cont);
-
       this.conteudoService.addConteudo(cont).subscribe(() => {
         this.funcoes[disciplinaId]();
+        this.formCadastro.reset();
       });
     } catch (error) {
       this.toast.error(error.message);
@@ -115,5 +122,27 @@ export class ModalAddConteudoComponent implements OnInit {
       this.toast.success('Conteúdo removido com sucesso');
       this.funcoes[cont.disciplinaId]();
     });
+  }
+
+  solicitarEditar(cont: ConteudoModel) {
+    this.contSelecionado = cont;
+    this.formCadastro.patchValue(cont);
+  }
+
+  editar() {
+    const cont: ConteudoModel = this.formCadastro.getRawValue();
+    cont.turmaId = this.turma.id;
+    cont.id = this.contSelecionado.id;
+    this.conteudoService.atualizarConteudo(cont).subscribe(() => {
+      this.toast.success('Conteudo atualizado');
+      this.formCadastro.reset();
+      this.contSelecionado = null;
+      this.funcoes[cont.disciplinaId]();
+    });
+  }
+
+  cancelar() {
+    this.contSelecionado = null;
+    this.formCadastro.reset();
   }
 }

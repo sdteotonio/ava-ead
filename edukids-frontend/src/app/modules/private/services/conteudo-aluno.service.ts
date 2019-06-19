@@ -18,5 +18,13 @@ export class ConteudoVisualizadoService {
     return this.http.get<ConteudoVisualizadoDtomodel[]>(`${environment.apiUrl}/conteudo-visualizado?idAluno=${idAluno}&idTurma=${idTurma}`);
   }
 
+  addVisu(visu: ConteudoVisualizadoDtomodel) {
+    return this.http.post(`${environment.apiUrl}/conteudo-visualizado`, visu);
+  }
+
+  remover(visuId: number) {
+    return this.http.delete(`${environment.apiUrl}/conteudo-visualizado/${visuId}`);
+  }
+
 
 }

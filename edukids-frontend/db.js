@@ -95,6 +95,7 @@ function getConteudovisualizado() {
             id: 0,
             idAluno: 0,
             idTurma:0,
+            idDisc:0,
             idConteudo: 0
         }
     ]
