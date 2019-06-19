@@ -13,10 +13,19 @@ export class ForumService {
   ) { }
 
   getForumByTurma(idTurma: number): Observable<ForumModel> {
-    this.listaForum = JSON.parse(sessionStorage.getItem('FORUM')) || this.listaForum;
-    return of(
-      this.listaForum.find(x => x.turmaId === idTurma)
-    ).pipe(delay(500));
+    this.listaForum = JSON.parse(sessionStorage.getItem('FORUM'));
+    if (this.listaForum) {
+      return of(
+        this.listaForum.find(x => x.turmaId === idTurma)
+      ).pipe(delay(500));
+    } else {
+      return of<ForumModel>(
+        {
+          turmaId: idTurma,
+          mensagens: []
+        }
+      );
+    }
   }
 
   atualizarForum(forumModel: ForumModel): Observable<ForumModel> {

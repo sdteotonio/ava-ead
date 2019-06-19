@@ -88,7 +88,6 @@ export class AreaAlunoComponent implements OnInit {
           listaSaida.push(element);
         }
       }
-      console.log(listaSaida);
 
       return listaSaida;
     }
