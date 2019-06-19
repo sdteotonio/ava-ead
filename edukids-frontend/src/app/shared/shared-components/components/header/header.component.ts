@@ -18,9 +18,12 @@ export class HeaderComponent implements OnInit {
   @Output()
   alerarTurma$: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+  modalforum$: EventEmitter<any> = new EventEmitter();
+
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {

@@ -167,5 +167,8 @@ export class AreaAlunoComponent implements OnInit {
     }
 
   }
+  forum() {
+    this.modalFabrica.modalForum(this.idTurma);
+  }
 
 }

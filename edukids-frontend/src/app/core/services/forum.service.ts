@@ -1,27 +1,33 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { ForumModel } from 'src/app/shared/shared-models/interface/forum.model';
-import { environment } from 'src/environments/environment';
 
 
 @Injectable()
 export class ForumService {
 
+  listaForum: ForumModel[] = [];
+
   constructor(
-    private http: HttpClient
   ) { }
 
   getForumByTurma(idTurma: number): Observable<ForumModel> {
-    return this.http.get<ForumModel>(`${environment.apiUrl}/forum?idTurma=${idTurma}`);
+    this.listaForum = JSON.parse(sessionStorage.getItem('FORUM')) || this.listaForum;
+    return of(
+      this.listaForum.find(x => x.turmaId === idTurma)
+    ).pipe(delay(500));
   }
 
   atualizarForum(forumModel: ForumModel): Observable<ForumModel> {
-    if (forumModel.id) {
-      return this.http.put<ForumModel>(`${environment.apiUrl}/forum/${forumModel.id}`, forumModel);
+    const forumExistenteId = this.listaForum.findIndex(x => x.turmaId == forumModel.id);
+    if (forumExistenteId >= 0) {
+      this.listaForum[forumExistenteId] = forumModel;
     } else {
-      return this.http.post<ForumModel>(`${environment.apiUrl}/forum`, forumModel);
+      this.listaForum.push(forumModel);
     }
+    sessionStorage.setItem('FORUM', JSON.stringify(this.listaForum));
+    return of(forumModel).pipe(delay(500));
   }
 
 }

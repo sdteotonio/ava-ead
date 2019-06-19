@@ -23,7 +23,8 @@ export class AuthService {
     }
 
     limparSessao() {
-        sessionStorage.clear();
+        sessionStorage.removeItem('USER');
+        sessionStorage.removeItem('ID_TURMA');
         this.usuarioLogado = null;
     }
 

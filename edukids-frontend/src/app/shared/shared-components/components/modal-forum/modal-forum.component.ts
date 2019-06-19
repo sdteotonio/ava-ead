@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ForumService } from 'src/app/core/services/forum.service';
@@ -22,6 +23,7 @@ export class ModalForumComponent implements OnInit {
     private bsModalRef: BsModalRef,
     private forumService: ForumService,
     private auth: AuthService,
+    private spin: NgxSpinnerService,
     private toast: ToastrService
   ) { }
 
@@ -33,11 +35,16 @@ export class ModalForumComponent implements OnInit {
   fechar() {
     this.bsModalRef.hide();
   }
-
-  enviar() {
+ enviar() {
+    this.spin.show();
     if (!this.forumAtual) {
       this.forumAtual = {
-        mensagens: [],
+        mensagens: [
+          {
+            pessoa: this.auth.getUsuarioLogado<UsuarioModel>().nome,
+            texto: this.inputMsg.value
+          }
+        ],
         turmaId: this.idTurma
       };
     } else {
@@ -53,12 +60,15 @@ export class ModalForumComponent implements OnInit {
     this.forumService.atualizarForum(this.forumAtual).subscribe(() => {
       this.toast.success('Mensagem enviada.');
       this.recuperarForum();
+      this.inputMsg.reset();
     });
   }
 
   recuperarForum() {
+    this.spin.show();
     this.forumService.getForumByTurma(this.idTurma).subscribe(forum => {
       this.forumAtual = forum;
+      this.spin.hide();
     });
   }
 
