@@ -5,6 +5,7 @@ import { TurmaModel } from 'src/app/modules/private/models/turma.model';
 import { ModalAddAlunoTurmaComponent } from 'src/app/shared/shared-components/components/modal-add-aluno-turma/modal-add-aluno-turma.component';
 import { ModalAddConteudoComponent } from 'src/app/shared/shared-components/components/modal-add-conteudo/modal-add-conteudo.component';
 import { ModalDialogComponent } from 'src/app/shared/shared-components/components/modal-dialog/modal-dialog.component';
+import { ModalForumComponent } from 'src/app/shared/shared-components/components/modal-forum/modal-forum.component';
 import { ModalSelecionarTurmaComponent } from 'src/app/shared/shared-components/components/modal-selecionar-turma/modal-selecionar-turma.component';
 import { ModalVideoComponent } from 'src/app/shared/shared-components/components/modal-video/modal-video.component';
 
@@ -40,6 +41,15 @@ export class FabricaModalService {
       ignoreBackdropClick: true,
       initialState: {
         turma: turmaModel
+      }
+    });
+  }
+
+  modalForum(turmaId: number) {
+    return this.bsModalS.show(ModalForumComponent, {
+      class: ' modal-lg',
+      initialState: {
+        idTurma: turmaId
       }
     });
   }

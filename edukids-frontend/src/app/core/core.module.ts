@@ -6,6 +6,7 @@ import { AuthService } from './services/auth.service';
 import { ConteudoService } from './services/conteudo.service';
 import { DisciplinaService } from './services/disciplina.service';
 import { FabricaModalService } from './services/fabrica-modal.service';
+import { ForumService } from './services/forum.service';
 import { NegocioService } from './services/negocio.service';
 import { UsuarioService } from './services/usuario.service';
 
@@ -28,6 +29,7 @@ export class CoreModule {
         UsuarioService,
         NegocioService,
         DisciplinaService,
+        ForumService,
         ConteudoService
       ]
     };

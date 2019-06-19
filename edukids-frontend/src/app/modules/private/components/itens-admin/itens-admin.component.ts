@@ -123,4 +123,8 @@ export class ItensAdminComponent implements OnInit {
     this.fabricaModalService.modalAddConteudoTurma(turma);
   }
 
+  acessarForum(turma: TurmaModel) {
+    this.fabricaModalService.modalForum(turma.id);
+  }
+
 }

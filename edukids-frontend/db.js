@@ -11,7 +11,8 @@ function getDb() {
         turmas: getTurmas(),
         disciplinas: getDisciplinas(),
         conteudos: getConteudos(),
-        "conteudo-visualizado": getConteudovisualizado()
+        "conteudo-visualizado": getConteudovisualizado(),
+        forum: getForum()
     }
 }
 
@@ -94,9 +95,24 @@ function getConteudovisualizado() {
         {
             id: 0,
             idAluno: 0,
-            idTurma:0,
-            idDisc:0,
+            idTurma: 0,
+            idDisc: 0,
             idConteudo: 0
+        }
+    ]
+}
+
+function getForum() {
+    return [
+        {
+            id: 0,
+            turmaId: 0,
+            mensagens: [
+                {
+                    pessoa: '',
+                    texto: ''
+                }
+            ]
         }
     ]
 }
