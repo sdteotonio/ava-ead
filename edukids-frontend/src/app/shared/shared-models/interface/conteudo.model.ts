@@ -7,5 +7,6 @@ export interface ConteudoModel {
     titulo: string;
     disciplinaId: DisciplinaEnum;
     conteudo: string;
+    categoria: string;
     tipo: TipoConteudoEnum;
 }

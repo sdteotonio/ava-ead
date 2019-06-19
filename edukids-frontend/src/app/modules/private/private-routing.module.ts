@@ -45,11 +45,6 @@ const routes: Routes = [
     path: 'area-aluno',
     component: AreaAlunoComponent,
     canActivate: [PrivateGuard]
-  },
-  {
-    path: 'area-curso/:idTurma',
-    component: AreaCursoComponent,
-    canActivate: [PrivateGuard]
   }
 ];
 

@@ -23,7 +23,7 @@ export class AuthService {
     }
 
     limparSessao() {
-        sessionStorage.removeItem('USER');
+        sessionStorage.clear();
         this.usuarioLogado = null;
     }
 

@@ -10,7 +10,8 @@ function getDb() {
         usuarios: getUsuarios(),
         turmas: getTurmas(),
         disciplinas: getDisciplinas(),
-        conteudos: getConteudos()
+        conteudos: getConteudos(),
+        "conteudo-visualizado": getConteudovisualizado()
     }
 }
 
@@ -84,6 +85,17 @@ function getConteudos() {
             disciplinaId: '',
             conteudo: '',
             tipo: ''
+        }
+    ]
+}
+
+function getConteudovisualizado() {
+    return [
+        {
+            id: 0,
+            idAluno: 0,
+            idTurma:0,
+            idConteudo: 0
         }
     ]
 }

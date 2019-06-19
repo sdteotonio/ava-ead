@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BsDatepickerModule, defineLocale, ptBrLocale } from 'ngx-bootstrap';
+import { AccordionModule, BsDatepickerModule, defineLocale, ptBrLocale } from 'ngx-bootstrap';
 import { SharedComponentsModule } from 'src/app/shared/shared-components/shared-components.module';
 import { AreaAlunoComponent } from './components/area-aluno/area-aluno.component';
 import { AreaCursoComponent } from './components/area-curso/area-curso.component';
@@ -11,6 +11,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ItensAdminComponent } from './components/itens-admin/itens-admin.component';
 import { PrivateGuard } from './guards/private-guard.service';
 import { PrivateRoutingModule } from './private-routing.module';
+import { ConteudoVisualizadoService } from './services/conteudo-aluno.service';
 import { ManterAlunoService } from './services/manter-aluno.service';
 import { ManterProfessorService } from './services/manter-professor.service';
 import { ManterTurmaService } from './services/manter-turma.service';
@@ -28,13 +29,15 @@ defineLocale('pt-br', ptBrLocale);
     CommonModule,
     PrivateRoutingModule,
     SharedComponentsModule,
+    AccordionModule.forRoot(),
     BsDatepickerModule.forRoot(),
   ],
   providers: [
     ManterProfessorService,
     ManterAlunoService,
     ManterTurmaService,
-    PrivateGuard
+    PrivateGuard,
+    ConteudoVisualizadoService
   ]
 })
 export class PrivateModule { }

@@ -72,13 +72,14 @@ export class ModalAddConteudoComponent implements OnInit {
     this.observables[DisciplinaEnum.PT] = this.conteudoService.conteudoByTurmaAndDiscipinas(this.turma.id, DisciplinaEnum.PT);
   }
 
-  addConteudo(titulo: string, conteudo: string, tipo: TipoConteudoEnum, disciplinaId: DisciplinaEnum) {
+  addConteudo(titulo: string, conteudo: string, tipo: TipoConteudoEnum, disciplinaId: DisciplinaEnum, categoria: string) {
 
     const cont: ConteudoModel = {
       conteudo,
       titulo,
       tipo,
       disciplinaId,
+      categoria,
       turmaId: this.turma.id
     };
     try {
