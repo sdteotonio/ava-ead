@@ -29,6 +29,7 @@ export class ForumService {
   }
 
   atualizarForum(forumModel: ForumModel): Observable<ForumModel> {
+    this.listaForum = JSON.parse(sessionStorage.getItem('FORUM')) || [];
     const forumExistenteId = this.listaForum.findIndex(x => x.turmaId == forumModel.id);
     if (forumExistenteId >= 0) {
       this.listaForum[forumExistenteId] = forumModel;
